@@ -1,34 +1,46 @@
 class Chronometer {
+  currentTime;
+  intervalId;
+
   constructor() {
-    // ... your code goes here
+    this.currentTime = 0;
+    this.intervalId = null;
   }
 
   start(callback) {
-    // ... your code goes here
+    this.intervalId= setInterval( () =>{
+      this.currentTime++;
+      if(callback) callback()
+    },1000)
   }
 
   getMinutes() {
-    // ... your code goes here
+    return Math.floor(this.currentTime/60)
   }
 
   getSeconds() {
-    // ... your code goes here
+    return this.currentTime % 60;
   }
 
   computeTwoDigitNumber(value) {
-    // ... your code goes here
+    //PadStart es una funcion para strings que
+    //Completa con el 0 hasta llegar a 2 caracteres (lo que hemos indicado)
+    return value.toString().padStart(2, '0')
   }
 
   stop() {
-    // ... your code goes here
+    clearInterval(this.intervalId)
   }
 
   reset() {
-    // ... your code goes here
+    this.currentTime = 0;
   }
 
   split() {
-    // ... your code goes here
+    const minutos = this.getMinutes();
+    const segundos = this.getSeconds();
+
+    return `${this.computeTwoDigitNumber(minutos)}:${this.computeTwoDigitNumber(segundos)}`
   }
 }
 
